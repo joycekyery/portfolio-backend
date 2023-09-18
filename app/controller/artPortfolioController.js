@@ -4,12 +4,6 @@ const ArtPortfolio = db.artPortfolio;
 // Create and Save 
 exports.create = (req, res) => {
     
-  // Validate request
-//   if (!req.body.title) {
-//     res.status(400).send({ message: "Content can not be empty!" });
-//     return;
-//   }
-
   // Create 
   const portfolio = new ArtPortfolio({
     title: req.body.title,
@@ -36,7 +30,18 @@ exports.create = (req, res) => {
 
 // Retrieve all 
 exports.findAll = (req, res) => {
-  
+  const title = req.query.title;
+  var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+  ArtPortfolio.find(condition)
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving tutorials."
+    });
+  });
 };
 
 // Find a single 
