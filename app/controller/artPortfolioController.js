@@ -28,10 +28,10 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all 
-exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+// Retrieve by year
+exports.findByYear = (req, res) => {
+  const year=req.params.year
+  var condition =  { year:  year }
   ArtPortfolio.find(condition)
   .then(data => {
     res.send(data);

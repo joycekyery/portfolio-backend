@@ -7,7 +7,7 @@ const artPortfolio = require("../controller/artPortfolioController");
     router.post("/create", artPortfolio.create);
   
     // // Retrieve all 
-    router.get("/", artPortfolio.findAll);
+    router.get("/findByYear/:year", artPortfolio.findByYear);
 
   
     // // Retrieve a single  with id
