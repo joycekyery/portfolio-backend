@@ -6,17 +6,17 @@ const artPortfolioRoute = require("./app/route/artPortfolioRoute");
 const app = express();
 const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
 
-// Configure CORS with allowed origins
-app.use(cors({
+var corsOptions = {
   origin: function (origin, callback) {
-    // Check if the request origin is in the allowedOrigins array
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS'))
     }
-  },
-}));
+  }
+}
+
+app.use(cors(corsOptions));
 
 
 // var corsOptions = {
