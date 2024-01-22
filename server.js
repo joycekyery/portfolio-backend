@@ -24,7 +24,7 @@ app.use(cors({
 //   credentials: true,
 // };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json({limit: '25mb'}));
