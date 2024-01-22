@@ -4,12 +4,25 @@ const cors = require('cors')
 const artPortfolioRoute = require("./app/route/artPortfolioRoute");
 
 const app = express();
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [];
+
+// Configure CORS with allowed origins
+app.use(cors({
+  origin: function (origin, callback) {
+    // Check if the request origin is in the allowedOrigins array
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+}));
 
 
-var corsOptions = {
-  origin: process.env.BASE_URL_FRONT_END,
-  credentials: true,
-};
+// var corsOptions = {
+//   origin: process.env.BASE_URL_FRONT_END,
+//   credentials: true,
+// };
 
 app.use(cors(corsOptions));
 
